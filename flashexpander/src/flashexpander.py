@@ -24,8 +24,6 @@ import re
 from subprocess import Popen, PIPE
 #Topfi end
 
-#from Plugins.Bp.geminimain.gTools import cleanexit
-
 
 def getMountP():
 	try:
@@ -74,12 +72,12 @@ class FlashExpander(Screen):
 
 		if ismounted("", "/usr"):
 			self.__foundFE = True
-			list = [(_("... is used, %dMB free") % getFreeSize("/usr"))]
+			_list = [(_("... is used, %dMB free") % getFreeSize("/usr"))]
 		else:
 			self.__foundFE = False
-			list = [(_("FlashExpander is not installed, create? Press Key OK."))]
+			_list = [(_("FlashExpander is not installed, create? Press Key OK."))]
 
-		self["list"] = MenuList(list=list)
+		self["list"] = MenuList(list=_list)
 
 	def Ok(self):
 		if self.__foundFE == False:
@@ -114,7 +112,7 @@ class FEconf(Screen):
 		}, -1)
 
 		#Blocklaufwerke
-		list = []
+		_list = []
 		for x in listdir("/sys/block"):
 			if x[0:2] == 'sd' or x[0:2] == 'hd':
 				print("[FlashExpander] device", x)
@@ -128,7 +126,7 @@ class FEconf(Screen):
 					except:
 						bustype = _("unknown")
 					if fstype in ("ext2", "ext3", "ext4", "xfs"):
-						list.append(("%s (%s) - Partition %d (%s)" % (devices.model(), bustype, y + 1, fstype), (devices, y + 1, fstype)))
+						_list.append(("%s (%s) - Partition %d (%s)" % (devices.model(), bustype, y + 1, fstype), (devices, y + 1, fstype)))
 
 		#Netzlaufwerke
 		try:
@@ -138,14 +136,14 @@ class FEconf(Screen):
 					server = entry[0].split(':')
 					if len(server) == 2:
 						print("[FlashExpander] server", server)
-						list.append(("Server (%s) - Path (%s)" % (server[0], server[1]), server))
+						_list.append(("Server (%s) - Path (%s)" % (server[0], server[1]), server))
 		except:
 			print("[FlashExpander] <getMountPoints>")
 
-		if len(list) == 0:
-			list.append((_("No HDD-, SSD- or USB-Device found. Please first initialized."), None))
+		if len(_list) == 0:
+			_list.append((_("No HDD-, SSD- or USB-Device found. Please first initialized."), None))
 
-		self["list"] = MenuList(list=list)
+		self["list"] = MenuList(list=_list)
 		self.Console = Console()
 
 	def Ok(self):
@@ -171,7 +169,6 @@ class FEconf(Screen):
 					fstobj = re.search(r' TYPE="((?:[^"\\]|\\.)*)"', line)
 					if fstobj:
 						fstype = fstobj.group(1)
-
 		except:
 			print("[FlashExpander] <error get fstype>")
 			return False
@@ -189,16 +186,15 @@ class FEconf(Screen):
 				#Topfi begin (use more reliable UUID mount on boxes without /dev/disk/by-uuid)
 				p = Popen(["blkid", "-o", "udev", device], stdout=PIPE, stderr=PIPE, stdin=PIPE)
 				txtUUID = p.stdout.read()
-				start = txtUUID.find("ID_FS_UUID=")
+				start = txtUUID.find(b"ID_FS_UUID=")
 				if start > -1:
 					txtUUID = txtUUID[start + 11:]
-					end = txtUUID.find("\n")
+					end = txtUUID.find(b"\n")
 					if end > -1:
 						txtUUID = txtUUID[:end]
-					return "UUID=" + txtUUID
+					return b"UUID=" + txtUUID
 				#Topfi end
 				return device
-
 		except:
 			print("[FlashExpander] <error get UUID>")
 		return None
@@ -250,7 +246,7 @@ class FEconf(Screen):
 		if path.exists(mp) == False:
 			createDir(mp, True)
 		cmd = "mount " + dev + " " + mp
-		#print "[FlashExpander]",cmd
+		#print("[FlashExpander]",cmd)
 		res = system(cmd)
 		return (res >> 8)
 
@@ -273,7 +269,7 @@ class FEconf(Screen):
 		if retval == True:
 			try:
 				devPath = val[0]
-				uuidPath = val[1]
+				uuidPath = val[1].decode('utf-8')
 				fstype = val[2]
 
 				#fstab editieren
@@ -292,11 +288,10 @@ class FEconf(Screen):
 				else:
 					newlines.append("%s\t/usr\tauto\tdefaults\t0 0" % (uuidPath))
 				fp = open("/etc/fstab", 'w')
-				fp.write("#automatically edited by FlashExpander\n")
+				#fp.write("#automatically edited by FlashExpander\n")
 				for x in newlines:
 					fp.write(x + "\n")
 				fp.close()
-
 				print("[FlashExpander] write new /etc/fstab")
 				self.session.openWithCallback(self.Exit, MessageBox, _("Do you want to reboot your STB_BOX?"))
 			except:
