@@ -285,6 +285,11 @@ easyinfo/Makefile
 easyinfo/meta/Makefile
 easyinfo/src/Makefile
 
+easymedia/Makefile
+easymedia/meta/Makefile
+easymedia/po/Makefile
+easymedia/src/Makefile
+
 ecasa/Makefile
 ecasa/meta/Makefile
 ecasa/src/Makefile

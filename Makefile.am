@@ -22,6 +22,7 @@ SUBDIRS = \
 	dreammediathek \
 	dvdbackup \
 	easyinfo \
+	easymedia \
 	ecasa \
 	eibox \
 	emailclient \
