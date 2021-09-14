@@ -139,7 +139,7 @@ class __VlcServerConfig():
 		config.plugins.vlcplayer.servercount = ConfigInteger(0)
 		config.plugins.vlcplayer.servers = ConfigSubList()
 		config.plugins.vlcplayer.defaultserver = ConfigText("", False)
-		for servernum in list(range(0, config.plugins.vlcplayer.servercount.value)):
+		for servernum in range(0, config.plugins.vlcplayer.servercount.value):
 			self.new()
 
 	# Add a new server or load a configsection if existing

@@ -59,7 +59,7 @@ class __YouTubeUserConfig():
 		config.plugins.youtubeplayer.usercount = ConfigInteger(0)
 		config.plugins.youtubeplayer.users = ConfigSubList()
 		config.plugins.youtubeplayer.defaultuser = ConfigText("", False)
-		for usernum in list(range(0, config.plugins.youtubeplayer.usercount.value)):
+		for usernum in range(0, config.plugins.youtubeplayer.usercount.value):
 			self.new()
 
 	# Add a new server or load a configsection if existing

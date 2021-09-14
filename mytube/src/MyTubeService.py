@@ -88,7 +88,7 @@ class CVevoSignAlgoExtractor:
         pythonFunBody = pythonFunBody.replace('.reverse()', '[::-1]')
 
         lines = pythonFunBody.split('\n')
-        for i in list(range(len(lines))):
+        for i in range(len(lines)):
             # a.split("") -> list(a)
             match = re.search('(\w+?)\.split\(""\)', lines[i])
             if match:
@@ -154,7 +154,7 @@ class CVevoSignAlgoExtractor:
 
             # wrap all local algo function into one function extractedSignatureAlgo()
             algoLines = self.fullAlgoCode.split('\n')
-            for i in list(range(len(algoLines))):
+            for i in range(len(algoLines)):
                 algoLines[i] = '\t' + algoLines[i]
             self.fullAlgoCode = 'def extractedSignatureAlgo(param):'
             self.fullAlgoCode += '\n'.join(algoLines)

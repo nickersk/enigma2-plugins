@@ -57,7 +57,7 @@ class StreamPlayer:
             seconds = int(remaining - (minutes * 60))
 
             def shiftchars(integer, char):
-                if integer in list(range(0, 10)):
+                if integer in range(0, 10):
                     return char + str(integer)
                 else:
                     return str(integer)

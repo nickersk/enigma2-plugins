@@ -23,7 +23,7 @@ class Sensors:
 		if type is None:
 			return list(range(len(self.sensors_list)))
 		list = []
-		for sensorid in list(range(len(self.sensors_list))):
+		for sensorid in range(len(self.sensors_list)):
 			if self.sensors_list[sensorid][0] == type:
 				list.append(sensorid)
 		return list

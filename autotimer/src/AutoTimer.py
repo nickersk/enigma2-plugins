@@ -708,7 +708,7 @@ class AutoTimer:
 						# We start our search right after our actual index
 						# Attention we have to use a copy of the list, because we have to append the previous older matches
 						lepgm = len(epgmatches)
-						for i in list(range(lepgm)):
+						for i in range(lepgm):
 							servicerefS, eitS, nameS, beginS, durationS, shortdescS, extdescS = epgmatches[(i + idx + 1) % lepgm]
 							if self.checkSimilarity(timer, name, nameS, shortdesc, shortdescS, extdesc, extdescS, force=True):
 								# Check if the similar is already known

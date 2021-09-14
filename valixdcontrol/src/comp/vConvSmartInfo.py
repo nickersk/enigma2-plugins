@@ -90,7 +90,7 @@ class vConvSmartInfo(Poll, Converter, object):
 			try:
 				templist = sensors.getSensorsList(sensors.TYPE_TEMPERATURE)
 				tempcount = len(templist)
-				for count in list(range(tempcount)):
+				for count in range(tempcount):
 					id = templist[count]
 					tt = sensors.getSensorValue(id)
 					if tt > maxtemp:
@@ -98,7 +98,7 @@ class vConvSmartInfo(Poll, Converter, object):
 						sensotN = sensors.getSensorName(id)
 						if sensotN == "undefined":
 							sensotN = "sensor-" + str(id)
-				Ret_Text = "max. Box-Temp:  " + str(maxtemp) + "°C / " + sensotN + "\n" + Ret_Text
+				Ret_Text = "max. Box-Temp:  " + str(maxtemp) + "ï¿½C / " + sensotN + "\n" + Ret_Text
 			except:
 				pass
 			return Ret_Text

@@ -1009,7 +1009,7 @@ class NcidLineReceiver(LineReceiver):
 
 		items = line.split('*')
 
-		for i in list(range(0, len(items))):
+		for i in range(0, len(items)):
 			item = items[i]
 
 			if item == 'DATE':

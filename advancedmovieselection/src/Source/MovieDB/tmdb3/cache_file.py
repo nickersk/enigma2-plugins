@@ -392,7 +392,7 @@ class FileEngine(CacheEngine):
                 d.dumpslot(self.cachefd)
                 prev = d
             # fill in allocated slots
-            for i in list(range(2**8)):
+            for i in range(2**8):
                 self.cachefd.write(FileCacheObject._struct.pack(0, 0, 0))
             # write stored data
             for d in data:
