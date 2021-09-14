@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 import sys
 import os
 import six
@@ -64,7 +63,7 @@ for arg in sys.argv[1:]:
 		k.replace("\\n", "\"\n\"")
 		if c:
 			for l in c.split('\n'):
-				print("#. ", l)
+				print("#. %s" % l)
 		print('msgid "' + six.ensure_str(k) + '"')
 		print('msgstr ""')
 

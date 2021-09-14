@@ -37,7 +37,7 @@ def _(txt):
 	if gettext.dgettext(PluginLanguageDomain, txt):
 		return gettext.dgettext(PluginLanguageDomain, txt)
 	else:
-		print("[" + PluginLanguageDomain + "] fallback to default translation for " + txt)
+		print("[%s] fallback to default translation for %s" % (PluginLanguageDomain, txt))
 		return gettext.gettext(txt)
 
 
